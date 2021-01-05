@@ -21,7 +21,7 @@ public class AnswerServiceTests {
             postAnswerDTO.setQuestionId(100);
             postAnswerDTO.setContent("测试回复5号问题的第1个答案");
             Integer userId = 9527;
-            String userNickName = "天下第一";
+            String userNickName = "天下第一二三";
             service.post(postAnswerDTO, userId, userNickName);
             System.out.println("发表答案成功！");
         } catch (ServiceException e) {
