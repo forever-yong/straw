@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.straw.elasticsearch.mapper.QuestionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="QuestionSearchVOMap" type="cn.tedu.straw.elasticsearch.vo.QuestionSearchVO">        <id column="id" property="id" />
+        <id column="id" property="id" />
+        <result column="title" property="title" />
+        <result column="content" property="content" />
+        <result column="user_id" property="userId" />
+        <result column="user_nick_name" property="userNickName" />
+    </resultMap>
+
+    <select id="findQuestions" resultMap="QuestionSearchVOMap">
+        SELECT
+            id, title, content, user_id, user_nick_name
+        FROM
+            question
+        ORDER BY
+            id
+    </select>
+
+</mapper>

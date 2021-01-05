@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>cn.tedu</groupId>
+        <artifactId>straw</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <groupId>cn.tedu</groupId>
+    <artifactId>straw-resource</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>straw-resource</name>
+
+    <dependencies>
+        <!-- Spring Cloud：Eureka客户端 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+        <!-- WEB：添加该依赖后，项目才内置Tomcat，并且启动项目时才会启动Tomcat，当然，也包含一系列与WEB开发相关的依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!-- Commons通用项目 -->
+        <dependency>
+            <groupId>cn.tedu</groupId>
+            <artifactId>straw-commons</artifactId>
+        </dependency>
+    </dependencies>
+</project>

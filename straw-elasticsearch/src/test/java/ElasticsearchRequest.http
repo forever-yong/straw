@@ -1,0 +1,111 @@
+###查看ES状态
+GET http://localhost:9200
+
+###
+GET http://www.pornhub.com
+
+###
+GET http://www.baidu.com
+
+### 创建索引--index01
+PUT http://localhost:9200/index01
+
+### 删除索引--index01
+DELETE http://localhost:9200/index01
+
+###查看索引列表
+GET http://localhost:9200/_cat/indices?v
+
+### 向index01中添加数据--1
+PUT http://localhost:9200/index01/_create/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "title": "Mybatis框架有什么作用？",
+  "content": "据说Mybatis框架可以简化持久层开发，还有其它的作用吗？"
+}
+
+### 向index01中添加数据--2
+PUT http://localhost:9200/index01/_create/2
+Content-Type: application/json
+
+{
+  "id": 2,
+  "title": "什么叫继承？",
+  "content": "继承继承继承？"
+}
+
+### 删除index01中的id=1的文档
+DELETE http://localhost:9200/index01/_doc/1
+
+### 删除index01中的id=2的文档
+DELETE http://localhost:9200/index01/_doc/2
+
+### 删除index01中的id=3的文档
+DELETE http://localhost:9200/index01/_doc/3
+
+### 查看index01中的id=1的文档
+GET http://localhost:9200/index01/_doc/1
+
+### 查看index01中的id=2的文档
+GET http://localhost:9200/index01/_doc/2
+
+### 查看index01中的id=3的文档
+GET http://localhost:9200/index01/_doc/3
+
+### 修改index01中的id=1的文档
+POST http://localhost:9200/index01/_doc/1/_update
+Content-Type: application/json
+
+{
+  "doc": {
+    "title": "Mybaits框架好用吗？"
+  }
+}
+
+### 使用标准分词器进行分词
+POST http://localhost:9200/_analyze
+Content-Type: application/json
+
+{
+  "analyzer": "standard",
+  "text": "祝大家顺利找到好工作"
+}
+
+### 使用ik_smart分词器进行分词
+POST http://localhost:9200/_analyze
+Content-Type: application/json
+
+{
+  "analyzer": "ik_smart",
+  "text": "你一天天的就只知道打游戏，能不能好好学习"
+}
+
+### 使用ik_max_word分词器进行分词
+POST http://localhost:9200/_analyze
+Content-Type: application/json
+
+{
+  "analyzer": "ik_max_word",
+  "text": "你一天天的就只知道打游戏，能不能好好学习"
+}
+
+### 配置index01的分词器
+POST http://localhost:9200/index01/_mapping
+Content-Type: application/json
+
+{
+  "properties": {
+    "title": {
+      "type": "text",
+      "analyzer": "ik_smart",
+      "search_analyzer": "ik_smart"
+    },
+    "content": {
+      "type": "text",
+      "analyzer": "ik_smart",
+      "search_analyzer": "ik_smart"
+    }
+  }
+}

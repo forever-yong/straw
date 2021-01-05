@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.straw.gateway.mapper.UserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.tedu.straw.commons.model.User">
+        <id column="id" property="id" />
+        <result column="username" property="username" />
+        <result column="nick_name" property="nickName" />
+        <result column="password" property="password" />
+        <result column="gender" property="gender" />
+        <result column="day_of_birth" property="dayOfBirth" />
+        <result column="phone" property="phone" />
+        <result column="class_id" property="classId" />
+        <result column="is_enabled" property="isEnabled" />
+        <result column="is_locked" property="isLocked" />
+        <result column="account_type" property="accountType" />
+        <result column="gmt_create" property="gmtCreate" />
+        <result column="gmt_modified" property="gmtModified" />
+    </resultMap>
+<select id="findByPhone" resultMap="BaseResultMap">
+    select *from user where phone=#{phone}
+</select>
+
+
+    <!-- 登录时查询个人信息的结果Map -->
+    <resultMap id="UserLoginMap" type="cn.tedu.straw.gateway.vo.UserLoginVO">
+        <id column="id" property="id" />
+        <result column="username" property="username" />
+        <result column="nick_name" property="nickName" />
+        <result column="password" property="password" />
+        <result column="phone" property="phone" />
+        <result column="is_enabled" property="isEnabled" />
+        <result column="is_locked" property="isLocked" />
+        <result column="account_type" property="accountType" />
+        <collection property="permissions"
+                    ofType="cn.tedu.straw.commons.model.Permission">
+            <result column="authority" property="authority" />
+            <result column="description" property="description" />
+        </collection>
+    </resultMap>
+
+    <select id="findLoginVOByPhone" resultMap="UserLoginMap">
+    SELECT
+        DISTINCT (user.id), username, nick_name, password,
+        phone, is_enabled, is_locked, account_type,
+        authority,description
+    FROM user
+    LEFT JOIN user_role ON user.id = user_role.user_id
+    LEFT JOIN role ON user_role.role_id = role.id
+    LEFT JOIN role_permission ON role.id = role_permission.role_id
+    LEFT JOIN permission ON role_permission.permission_id = permission.id
+    WHERE phone=#{phone}
+    ORDER BY permission.id
+</select>
+
+</mapper>
